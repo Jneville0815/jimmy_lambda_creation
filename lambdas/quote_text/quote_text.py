@@ -1,6 +1,7 @@
 import os
 import urllib3
 import json
+import random
 from twilio.rest import Client
 
 
@@ -34,3 +35,13 @@ def lambda_handler(event, context):
     )
 
     print(f"Text message sent (Message: {message.body}. Error: {message.error_message})")
+
+    if random.random() < 0.10:
+        message = client.messages \
+            .create(
+            body="This is a reminder that your boyfriend loves you!",
+            from_=twilio_number,
+            to='+18654561408'
+        )
+
+        print(f"Text message sent (Message: {message.body}. Error: {message.error_message})")
